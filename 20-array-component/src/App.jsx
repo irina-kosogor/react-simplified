@@ -1,71 +1,62 @@
-import { useState } from "react"
+import { useState } from "react";
 
-const INITIAL_VALUE = ["A", "B", "C"]
+const INITIAL_VALUE = ["A", "B", "C"];
 
 function App() {
-  const [array, setArray] = useState(INITIAL_VALUE)
-  const [value, setValue] = useState("")
+  const [array, setArray] = useState(INITIAL_VALUE);
+  const [value, setValue] = useState("");
 
-  function removeFirstElement() {
-    setArray(currentArray => {
-      return currentArray.slice(1)
-    })
-  }
+  const handleRemoveFirstElement = () => {
+    setArray((currentArray) => currentArray.slice(1));
+  };
 
-  function removeSpecificLetter(letter) {
-    setArray(currentArray => {
-      return currentArray.filter(element => element !== letter)
-    })
-  }
+  const removeSpecificLetter = (letter) => {
+    setArray((currentArray) =>
+      currentArray.filter(
+        (item) => item.toLocaleLowerCase() !== letter.toLocaleLowerCase()
+      )
+    );
+  };
 
-  function addLetterToStart(letter) {
-    setArray(currentArray => {
-      return [letter, ...currentArray]
-    })
-  }
+  const addLetterToStart = (letter) => {
+    setArray((prevArray) => [letter.toUpperCase(), ...prevArray]);
+  };
 
-  function addLetterToEnd(letter) {
-    setArray(currentArray => {
-      return [...currentArray, letter]
-    })
-  }
+  const addLetterToEnd = (letter) => {
+    setArray((prevArray) => [...prevArray, letter.toUpperCase()]);
+  };
 
-  function clear() {
-    setArray([])
-  }
+  const clear = () => {
+    setArray([]);
+  };
 
-  function reset() {
-    setArray(INITIAL_VALUE)
-  }
+  const reset = () => {
+    setArray(INITIAL_VALUE);
+  };
 
-  function updateAToH() {
-    setArray(currentArray => {
-      return currentArray.map(element => {
-        if (element === "A") return "H"
-        return element
-      })
-    })
-  }
+  const updateAToH = () => {
+    setArray((currentArray) =>
+      currentArray.map((item) => (item === "A" ? "H" : item))
+    );
+  };
 
-  function addLetterAtIndex(letter, index) {
-    setArray(currentArray => {
-      return [
-        ...currentArray.slice(0, index),
-        letter,
-        ...currentArray.slice(index),
-      ]
-    })
-  }
+  const addLetterAtIndex = (letter, index) => {
+    setArray((currentArray) => [
+      ...currentArray.slice(0, index),
+      letter.toUpperCase(),
+      ...currentArray.slice(index),
+    ]);
+  };
 
   return (
     <div>
-      <button onClick={removeFirstElement}>Remove First Element</button>
+      <button onClick={handleRemoveFirstElement}>Remove First Element</button>
       <br />
-      <button onClick={() => removeSpecificLetter("B")}>Remove All B's</button>
+      <button onClick={() => removeSpecificLetter("b")}>Remove All B's</button>
       <br />
-      <button onClick={() => addLetterToStart("B")}>Add To Start</button>
+      <button onClick={() => addLetterToStart("a")}>Add To Start</button>
       <br />
-      <button onClick={() => addLetterToEnd("Z")}>Add To End</button>
+      <button onClick={() => addLetterToEnd("z")}>Add To End</button>
       <br />
       <button onClick={clear}>Clear</button>
       <br />
@@ -73,9 +64,9 @@ function App() {
       <br />
       <button onClick={updateAToH}>Update A To H</button>
       <br />
-      <button onClick={() => addLetterAtIndex("C", 2)}>Add C At 2</button>
+      <button onClick={() => addLetterAtIndex("C", 1)}>Add C At 2</button>
       <br />
-      <input value={value} onChange={e => setValue(e.target.value)} />
+      <input value={value} onChange={(e) => setValue(e.target.value)} />
       <br />
       <button onClick={() => addLetterToStart(value)}>
         Add Value To Array
@@ -83,7 +74,7 @@ function App() {
       <br />
       {array.join(", ")}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
