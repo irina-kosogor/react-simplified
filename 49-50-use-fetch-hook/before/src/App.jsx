@@ -1,33 +1,34 @@
-import { useState } from "react"
-
-// If the API does not work use these local URLs
-// const URLS = {
-//   USERS: "users.json",
-//   POSTS: "posts.json",
-//   COMMENTS: "comments.json",
-// }
+import { useState } from "react";
+import { useFetch } from "./useFetch";
 
 const URLS = {
   USERS: "https://jsonplaceholder.typicode.com/users",
   POSTS: "https://jsonplaceholder.typicode.com/posts",
   COMMENTS: "https://jsonplaceholder.typicode.com/comments",
-}
+};
 
 // BONUS:
-// const OPTIONS = {
-//   method: "POST",
-//   body: JSON.stringify({ name: "Kyle" }),
-//   headers: {
-//     "Content-type": "application/json",
-//   },
-// }
+const OPTIONS = {
+  method: "POST",
+  body: JSON.stringify({ name: "Kyle" }),
+  headers: {
+    "Content-type": "application/json",
+  },
+};
 
 function App() {
-  const [url, setUrl] = useState(URLS.USERS)
+  const [url, setUrl] = useState(URLS.USERS);
 
-  const { data, isLoading, isError } = useFetch(url)
+  // const { data, isLoading, isError } = useFetch(
+  //   "https://jsonplaceholder.typicode.com/users"
+  // );
   // BONUS:
-  // const { data, isLoading, isError } = useFetch(url, OPTIONS)
+  const { data, isLoading, isError } = useFetch(
+    url,
+    url === URLS.POSTS && OPTIONS
+  );
+
+  console.log(data);
 
   return (
     <>
@@ -65,7 +66,7 @@ function App() {
         <pre>{JSON.stringify(data, null, 2)}</pre>
       )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
